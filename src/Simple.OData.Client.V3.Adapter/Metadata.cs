@@ -159,7 +159,7 @@ namespace Simple.OData.Client.V3.Adapter
 				}
 			}
 
-			return string.Join("/", [.. exactNames]);
+            return string.Join("/", exactNames);
 		}
 
 		public override bool HasNavigationProperty(string collectionName, string propertyName)

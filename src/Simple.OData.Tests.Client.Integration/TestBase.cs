@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Simple.OData.Client;
 
 namespace Simple.OData.Tests.Client;

@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Simple.OData.Client;
 using Xunit;
-using Xunit.Sdk;
 using Entry = System.Collections.Generic.Dictionary<string, object>;
 
 namespace Simple.OData.Tests.Client;

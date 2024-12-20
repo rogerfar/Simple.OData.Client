@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Data.Edm;
 using Simple.OData.Client;
 using Xunit;

@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
@@ -182,7 +181,7 @@ public class MockingRequestExecutor
 
 	private async Task ValidateRequestAsync(HttpRequestMessage request)
 	{
-		using var stream = new FileStream(GenerateMockDataPath(), FileMode.Open);
+		await using var stream = new FileStream(GenerateMockDataPath(), FileMode.Open);
 		var ser = new DataContractJsonSerializer(typeof(SerializableHttpRequestMessage));
 		var savedRequest = ser.ReadObject(stream) as SerializableHttpRequestMessage;
 #if !BENCHMARKS

@@ -46,7 +46,7 @@ namespace Simple.OData.Client.V4.Adapter
 				_session.Metadata.GetQualifiedTypeName(collection)) as IEdmEntityType;
 			var model = (method == RestVerbs.Patch || method == RestVerbs.Merge) ? new EdmDeltaModel(_model, entityType, entryData.Keys) : _model;
 
-			using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(), model);
+			await using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(), model);
 			var contentId = _deferredBatchWriter?.Value.GetContentId(entryData, null);
 			var entityCollection = _session.Metadata.NavigateToCollection(collection);
 			var entryDetails = _session.Metadata.ParseEntryDetails(entityCollection.Name, entryData, contentId);
@@ -144,7 +144,7 @@ namespace Simple.OData.Client.V4.Adapter
 				? await CreateBatchOperationMessageAsync(method, null, null, commandText, false).ConfigureAwait(false)
 				: new ODataRequestMessage();
 
-			using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(), _model);
+			await using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(), _model);
 			var link = new ODataEntityReferenceLink
 			{
 				Url = Utils.CreateAbsoluteUri(_session.Settings.BaseUri.AbsoluteUri, linkIdent)
@@ -174,7 +174,7 @@ namespace Simple.OData.Client.V4.Adapter
 				? await CreateBatchOperationMessageAsync(method, null, null, commandText, true).ConfigureAwait(false)
 				: new ODataRequestMessage();
 
-			using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(), _model);
+			await using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(), _model);
 
 			static bool typeMatch(IEdmOperationParameter parameter, IEdmType baseType) =>
 				parameter is null ||
@@ -310,7 +310,7 @@ namespace Simple.OData.Client.V4.Adapter
 		protected async override Task<Stream> WriteStreamContentAsync(Stream stream, bool writeAsText)
 		{
 			var message = new ODataRequestMessage();
-			using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(ODataFormat.RawValue), _model);
+			await using var messageWriter = new ODataMessageWriter(message, GetWriterSettings(ODataFormat.RawValue), _model);
 			var value = writeAsText ? (object)Utils.StreamToString(stream) : Utils.StreamToByteArray(stream);
 			await messageWriter.WriteValueAsync(value).ConfigureAwait(false);
 			return await message.GetStreamAsync().ConfigureAwait(false);

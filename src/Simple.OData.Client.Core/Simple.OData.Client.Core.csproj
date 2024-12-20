@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
 	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
+		<TargetFrameworks>net9.0</TargetFrameworks>
 		<RootNamespace>Simple.OData.Client</RootNamespace>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 		<StrongNamePublicKey>$(StrongNamePublicKey)</StrongNamePublicKey>
 		<IsPackable>true</IsPackable>
+		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
 	<PropertyGroup>
